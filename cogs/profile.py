@@ -9,7 +9,7 @@ from classes.helping import Helping
 
 class Profile(commands.Cog):
     """
-    This module allows you to check your profile data and reletive information.
+This module allows you to check your profile data and reletive information.
     """
 
 
@@ -91,10 +91,6 @@ class Profile(commands.Cog):
         await ctx.send(embed=embed)
         return
 
-    @commands.command()
-    @commands.check(has_profile)
-    async def x(self, ctx):
-        pass
 
 def setup(bot):
     bot.add_cog(Profile(bot))

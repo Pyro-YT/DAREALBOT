@@ -8,7 +8,7 @@ from classes.helping import Helping
 
 class OwnerOnly(commands.Cog):
     """
-    These commands has been reserved for the ownership team to streamline development.
+These commands has been reserved for the ownership team to streamline development.
     """
     def __init__(self, bot):
         self.bot = bot

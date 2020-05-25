@@ -33,11 +33,11 @@ class Errors(commands.Cog):
             embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=Helping().get_footer(ctx))
             await ctx.send(embed=embed)
             return
-        if isinstance(error, commands.CheckFailure):
-            embed=discord.Embed(title="You don't have permissions to run this command.", description=f'<:warningerrors:713782413381075536> `{ctx.prefix}{ctx.command}` has been restricted to owner usage only.', color=0x36393E)
-            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=Helping().get_footer(ctx))
-            await ctx.send(embed=embed)
-            return
+        # if isinstance(error, commands.CheckFailure):
+        #     embed=discord.Embed(title="You don't have permissions to run this command.", description=f'<:warningerrors:713782413381075536> `{ctx.prefix}{ctx.command}` has been restricted to owner usage only.', color=0x36393E)
+        #     embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=Helping().get_footer(ctx))
+        #     await ctx.send(embed=embed)
+        #     return
 
 
 

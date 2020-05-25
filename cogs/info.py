@@ -1,3 +1,4 @@
+from __future__ import annotations
 import discord
 from discord.ext import commands
 import time
@@ -9,6 +10,9 @@ from classes.helping import Helping
 class EmbedHelpCommand(commands.HelpCommand):
 
     COLOUR = 0x36393E
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.verify_checks = False
 
     def get_ending_note(self):
         now = datetime.datetime.now()
@@ -68,6 +72,7 @@ class EmbedHelpCommand(commands.HelpCommand):
         await self.get_destination().send(embed=embed)
 
     async def send_cog_help(self, cog):
+        verify_checks=False
         cmds=""
         embed = discord.Embed(title=f'{(cog.qualified_name).upper()} MODULE', colour=self.COLOUR)
         # if cog.description:
@@ -85,7 +90,7 @@ class EmbedHelpCommand(commands.HelpCommand):
         await self.get_destination().send(embed=embed)
 
     async def send_group_help(self, group):
-
+        self.verify_checks=False
         embed = discord.Embed(title=self.get_command_signature(group), colour=self.COLOUR)
         if group.help:
             embed.description = group.help
