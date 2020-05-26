@@ -37,4 +37,4 @@ bot.load_extension('jishaku')
 
 
 
-bot.run('NTg5MDc1MjE4NjA2MTk0Njk5.XsEULw.nmsvmBj_8JPiqWsWh40z8911gRA')
+bot.run('NTg5MDc1MjE4NjA2MTk0Njk5.Xsp28Q.w4AdvKbxLY_-2TtA_ZBkw_OAACc')
