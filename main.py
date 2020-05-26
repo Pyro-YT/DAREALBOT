@@ -4,7 +4,15 @@ import random
 import os
 import itertools
 from cogs.info import EmbedHelpCommand
-
+# import mysql.connector
+#
+# db = mysql.connector.connect(
+#     host="35.223.188.9",
+#     user="dareal",
+#     passwd="XdyjA-FH8wWbv+nH7@7K!&2c^",
+#     database="economy",
+#     port=3306
+# )
 
 
 # class MyHelpCommand(commands.MinimalHelpCommand):
