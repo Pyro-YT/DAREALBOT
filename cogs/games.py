@@ -18,7 +18,7 @@ class Games(commands.Cog):
 
     def has_profile():
         async def predicate(ctx):
-            user = await ctx.cog.bot.pg_con.fetch("SELECT * FROM profiles WHERE discord_id = $1", ctx.author.id)
+            user = await ctx.cog.bot.pg_con.fetchval("SELECT money FROM profiles WHERE discord_id = $1 and guild_id = $2", ctx.author.id, ctx.guild.id)
             if not user:
                 embed=discord.Embed(title="You need to create a profile first.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}create` to create your profile.', color=0x2f3136)
                 embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
@@ -28,9 +28,10 @@ class Games(commands.Cog):
                 return True
         return commands.check(predicate)
 
+
     @commands.command(help='`<choice>` - Heads, Tails\nFlips a coin, if your choice is the same as what the flip returns, you will earn money calculated from the currant ammount of money you have, if you get it wrong you will lose money based on the ammount of money you have. You need at least $25 to be able to run this command.')
     @has_profile()
-    @commands.is_owner()
+    # @has_ammount()
     async def flip(self, ctx, choice):
         await ctx.message.add_reaction('<a:loading:716280480579715103>')
         """
