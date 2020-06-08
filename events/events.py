@@ -67,6 +67,5 @@ class Events(commands.Cog):
         self.change_statuss.start()
         self.counter.start()
 
-
 def setup(bot):
     bot.add_cog(Events(bot))

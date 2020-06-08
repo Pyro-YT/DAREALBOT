@@ -12,7 +12,7 @@ class EmbedHelpCommand(commands.HelpCommand):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.verify_checks = False
-        self.help = 'asd'
+        self.__doc__ = 'asd'
 
     def get_ending_note(self):
         now = datetime.datetime.now()
@@ -80,6 +80,7 @@ class EmbedHelpCommand(commands.HelpCommand):
         await self.get_destination().send(embed=embed)
 
     async def send_cog_help(self, cog):
+
         verify_checks=False
         cmds=""
         embed = discord.Embed(title=f'{(cog.qualified_name).upper()} MODULE', colour=self.COLOUR)
@@ -90,7 +91,10 @@ class EmbedHelpCommand(commands.HelpCommand):
         for command in filtered:
             cmds += f"`{(self.get_command_signature_name(command)).strip()}`"
             cmds += f" - "
-            cmds += f'{command.callback.__doc__.strip()}'
+            if self.get_command_signature_name(command).strip() == 'help':
+                cmds+='Shows this message'
+            else:
+                cmds += f'{command.callback.__doc__.strip()}'
             cmds += '\n'
         embed.add_field(name=f'**{cog.__doc__}**', value=cmds, inline=False)
         embed.set_thumbnail(url=cog.thumbnail)
