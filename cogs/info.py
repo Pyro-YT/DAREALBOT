@@ -12,6 +12,7 @@ class EmbedHelpCommand(commands.HelpCommand):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.verify_checks = False
+        self.help = 'asd'
 
     def get_ending_note(self):
         now = datetime.datetime.now()
@@ -132,7 +133,6 @@ class Info(commands.Cog):
         self.bot = bot
         self.icon = "<:Info:718139261328556032>"
         self.thumbnail = 'https://media.discordapp.net/attachments/714855923621036052/718139093531492392/433944.png?width=499&height=499'
-        self.global_check = False
 
     @commands.command(aliases=['p'] ,help="Displays the average webstock latency calculated from 3 requests.")
     async def ping(self, ctx):
