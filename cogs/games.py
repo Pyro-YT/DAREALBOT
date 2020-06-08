@@ -51,9 +51,14 @@ class Games(commands.Cog):
             f'LOL U PEASENT, YOU JUST LOST `${lost}`.. my man chose `{choice.lower()}` and flipped a `{flip.lower()}` :rofl:',
             f'**lmao... imagine being you right now** :laughing: u just lost `${lost}` cuz you chose `{choice.lower()}` and flipped `{flip.lower()}` L0L'])
 
+        async def random_compliment_title():
+            return random.choice(['Hmmm... looks like you got it right :confused:',
+            'You.. You beat me...',
+            'Looks like you chose correctly...'])
+
         async def random_compliment(gained):
-            return random.choice([f'you took `${gained}` from dareals money... *dareal sad* :frowning:',
-            f':cry: why do you have to be so good at guessing. *you made dareal sad because you took `${gained}` from me*'])
+            return random.choice([f'I flipped **`{flip}`**, just as you predicted. You earned **`${gained}`**.',
+            f'My man your going to make me broke, I flipped **`{flip}`** just like you said... I gave you **`${gained}`**'])
 
         choice = choice.upper()
 
@@ -69,10 +74,16 @@ class Games(commands.Cog):
         flip = random.choice(['HEADS', 'TAILS'])
 
         if flip == choice:
+            embed=discord.Embed(title="", description=f'<:warningerrors:713782413381075536> See `{ctx.prefix}help {ctx.command}` for more information.', color=0x2f3136)
             gained = await darealmodule.Money.calculate_random_add(self, ctx, ctx.author.id, 10, 16)
             await darealmodule.Money.add_ammount(self, ctx, ctx.author.id, gained)
+
             await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
-            await ctx.send(f'<:check:711530148196909126> {await random_compliment(gained)}\n{ctx.author.mention}')
+
+            embed=discord.Embed(title=f"{await random_compliment_title()}", description=f'<:check:711530148196909126> {await random_compliment(gained)}', color=0x2f3136)
+            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+            await ctx.send(embed=embed)
+            return
         else:
             lost = await darealmodule.Money.calculate_random_remove(self, ctx, ctx.author.id, 5, 10)
             await darealmodule.Money.remove_ammount(self, ctx, ctx.author.id, lost)
