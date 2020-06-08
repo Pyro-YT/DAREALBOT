@@ -5,6 +5,7 @@ import sys
 import os
 import json
 import darealmodule
+import random
 
 
 class Profile(commands.Cog):
@@ -23,7 +24,7 @@ class Profile(commands.Cog):
             user = await ctx.cog.bot.pg_con.fetch("SELECT * FROM profiles WHERE discord_id = $1 AND guild_id = $2", ctx.author.id, ctx.guild.id)
             if not user:
                 embed=discord.Embed(title="You need to create a profile first.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}create` to create your profile.', color=0x2f3136)
-                embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+                embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(ctx.cog, ctx))
                 await ctx.send(embed=embed)
                 raise discord.ext.commands.CommandNotFound
             else:
@@ -78,6 +79,23 @@ class Profile(commands.Cog):
         await ctx.send(embed=embed)
         return
 
+    @commands.command(aliases=['profile', 'cash'], help='Shows all of the reletive data binded to your profile such as your balance, more comming soon.')
+    @has_profile()
+    async def ball(self, ctx):
+
+        """
+        Shows profile info.
+        """
+        money = await darealmodule.Money.get_money(self, ctx, ctx.author.id)
+
+        async def gen_random():
+            return random.choice(["Oh hey, I found your profile and uh a cat?",
+            "Hey, I've missed you, dw I got your profile down here."])
+
+        embed=discord.Embed(title=f"{await gen_random()}", description=f'<:catbox:719527304476491858> You have **`${money}`** in your account.\nUse `{ctx.prefix}help Games` to view a list of commands to earn money.', color=0x2f3136)
+        embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+        await ctx.send(embed=embed)
+        return
 
 def setup(bot):
     bot.add_cog(Profile(bot))
