@@ -21,7 +21,7 @@ class Games(commands.Cog):
             user = await ctx.cog.bot.pg_con.fetchval("SELECT money FROM profiles WHERE discord_id = $1 and guild_id = $2", ctx.author.id, ctx.guild.id)
             if not user:
                 embed=discord.Embed(title="You need to create a profile first.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}create` to create your profile.', color=0x2f3136)
-                embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+                embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(ctx.cog, ctx))
                 await ctx.send(embed=embed)
                 raise discord.ext.commands.CommandNotFound
             else:
@@ -30,25 +30,35 @@ class Games(commands.Cog):
 
 
     @commands.command(help='`<choice>` - Heads, Tails\nFlips a coin, if your choice is the same as what the flip returns, you will earn money calculated from the currant ammount of money you have, if you get it wrong you will lose money based on the ammount of money you have. You need at least $25 to be able to run this command.')
+    # @commands.command(help='asd')
     @has_profile()
     # @has_ammount()
     async def flip(self, ctx, choice):
+        """Flips a coin for money."""
+        min_ammount = 25
+        if await darealmodule.Money.has_money(self, ctx, ctx.author.id, min_ammount) == True:
+            pass
+        else:
+            embed=discord.Embed(title="You don't have enough money to run that command.", description=f'<:warningerrors:713782413381075536> `{ctx.prefix}{ctx.command}` Requires a minimum of `${min_ammount}` to be run.', color=0x2f3136)
+            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(ctx.cog, ctx))
+            await ctx.send(embed=embed)
+            return
+
         await ctx.message.add_reaction('<a:loading:716280480579715103>')
-        """
-        Flips a coin for money.
-        """
+
         async def random_roast(lost):
             return random.choice([f'Hahahah **noob** you failed and fliped `{flip.lower()}` instead but u chose `{choice.lower()}`, u just lost `${lost}`',
             f'LOL U PEASENT, YOU JUST LOST `${lost}`.. my man chose `{choice.lower()}` and flipped a `{flip.lower()}` :rofl:',
             f'**lmao... imagine being you right now** :laughing: u just lost `${lost}` cuz you chose `{choice.lower()}` and flipped `{flip.lower()}` L0L'])
-        
+
         async def random_compliment(gained):
             return random.choice([f'you took `${gained}` from dareals money... *dareal sad* :frowning:',
             f':cry: why do you have to be so good at guessing. *you made dareal sad because you took `${gained}` from me*'])
-        
+
         choice = choice.upper()
 
         if choice not in ('HEADS', 'TAILS', 'HEAD', 'TAIL'):
+            await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
             embed=discord.Embed(title="You did not enter a valid aurgument.", description=f'<:warningerrors:713782413381075536> See `{ctx.prefix}help {ctx.command}` for more information.', color=0x2f3136)
             embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
             await ctx.send(embed=embed)
@@ -61,13 +71,13 @@ class Games(commands.Cog):
         if flip == choice:
             gained = await darealmodule.Money.calculate_random_add(self, ctx, ctx.author.id, 10, 16)
             await darealmodule.Money.add_ammount(self, ctx, ctx.author.id, gained)
-            await ctx.send(f'<:check:711530148196909126> {await random_compliment(gained)}\n{ctx.author.mention}')
             await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
+            await ctx.send(f'<:check:711530148196909126> {await random_compliment(gained)}\n{ctx.author.mention}')
         else:
             lost = await darealmodule.Money.calculate_random_remove(self, ctx, ctx.author.id, 5, 10)
             await darealmodule.Money.remove_ammount(self, ctx, ctx.author.id, lost)
-            await ctx.send(f'<:rcross:711530086251364373> {await random_roast(lost)}\n{ctx.author.mention}')
             await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
+            await ctx.send(f'<:rcross:711530086251364373> {await random_roast(lost)}\n{ctx.author.mention}')
 
 def setup(bot):
     bot.add_cog(Games(bot))

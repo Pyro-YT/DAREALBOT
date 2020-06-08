@@ -75,7 +75,7 @@ class EmbedHelpCommand(commands.HelpCommand):
 
     async def send_error_message(self, error):
         embed=discord.Embed(title="That command or module was not found.", description=f'<:warningerrors:713782413381075536> Please note that Modules and Commands are **`case sensetive`**.', color=0x2f3136)
-        embed.set_footer(icon_url=self.context.author.avatar_url_as(format="png"), text=darealmodule.get_footer(self.context))
+        embed.set_footer(icon_url=self.context.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, self.context))
         await self.get_destination().send(embed=embed)
 
     async def send_cog_help(self, cog):
@@ -89,7 +89,7 @@ class EmbedHelpCommand(commands.HelpCommand):
         for command in filtered:
             cmds += f"`{(self.get_command_signature_name(command)).strip()}`"
             cmds += f" - "
-            cmds += command.callback.__doc__.strip()
+            cmds += f'{command.callback.__doc__.strip()}'
             cmds += '\n'
         embed.add_field(name=f'**{cog.__doc__}**', value=cmds, inline=False)
         embed.set_thumbnail(url=cog.thumbnail)

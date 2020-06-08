@@ -19,7 +19,7 @@ class Money():
 
         percent = random.choice(nums)
         percent = int(percent)
-        
+
         return round(((user_money / 100) * percent))
 
     async def remove_ammount(self, ctx, author_id, ammount):
@@ -34,7 +34,7 @@ class Money():
 
         percent = random.choice(nums)
         percent = int(percent)
-        
+
         return round(((user_money / 100) * percent))
 
     async def add_ammount(self, ctx, author_id, ammount):
@@ -42,3 +42,9 @@ class Money():
         user_money = await Money().get_money(ctx, author_id)
         ammount = user_money + ammount
         await ctx.cog.bot.pg_con.execute("UPDATE profiles SET money = $1 WHERE discord_id = $2 and guild_id = $3", ammount, author_id, guild_id)
+
+    async def has_money(self, ctx, author_id, ammount):
+        if await Money().get_money(ctx, author_id) >= ammount:
+            return True
+        else:
+            return False
