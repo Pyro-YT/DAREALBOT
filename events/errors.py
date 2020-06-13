@@ -34,7 +34,7 @@ class Errors(commands.Cog):
             return
         if isinstance(error, commands.CommandOnCooldown):
             embed=discord.Embed(title=f"Cooldown is active.", description=f'<:warningerrors:713782413381075536> The command `{ctx.prefix}{ctx.command}` can only be called once every 30 seconds.', color=0x36393E)
-            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=Helping().get_footer(ctx))
+            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
             await ctx.send(embed=embed)
             return
         # if isinstance(error, commands.CheckFailure):

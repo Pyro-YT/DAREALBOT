@@ -153,6 +153,8 @@ class Info(commands.Cog):
         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
         await ctx.send(embed=embed)
 
+        
+
     # def cog_unload(self):
     #     self.bot.help_command = self._original_help_command
 def setup(bot):

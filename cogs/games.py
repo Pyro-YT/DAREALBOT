@@ -99,44 +99,6 @@ class Games(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-#     @commands.command(help='Placeholder.')
-#     @has_profile()
-#     async def guessnumber(self, ctx):
-
-#         def message_check(m):
-#             return ctx.channel.id == m.channel.id
-
-#         embed=discord.Embed(title="Guess the number...", description=f""":question: The number is between **`1 & 15`**.
-# Anyone that **`has a profile may play** by simply **sending your guess**! 
-# If you do not have a profile your guess will be ignored. 
-# You will **`lose money per wrong guess`**, 
-# if you get it right **`you will get all the money that all other participants have lost`**, 
-# **`if no money has been lost you will gain a pre-calculated percentage of money.`**
-
-# **`[+]`** The number is between **1 & 15**.
-# **`[+]`** If you have a profile.
-# """, color=0x2f3136)
-#         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(ctx.cog, ctx))
-#         await ctx.send(embed=embed)
-
-#         guess_range = range(1, 15)
-#         choice = str(random.choice(guess_range))
-
-#         loser_list = []
-#         answer = await self.bot.wait_for('message', check=message_check)
-
-#         if answer.content == choice:
-#             await ctx.send('yes')
-#             return
-#         else:
-#             pass
-
-#         while answer.content != choice:
-#             loser_list.append(answer.author.id)
-#             answer = await self.bot.wait_for('message', check=message_check)
-
-
-#         await ctx.send('yes')
 
 def setup(bot):
     bot.add_cog(Games(bot))
