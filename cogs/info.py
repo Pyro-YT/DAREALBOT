@@ -181,7 +181,7 @@ class Info(commands.Cog):
         self.icon = "<:Info:718139261328556032>"
         self.thumbnail = 'https://media.discordapp.net/attachments/714855923621036052/718139093531492392/433944.png?width=499&height=499'
 
-    @commands.command(aliases=['p'] ,help="Displays the average webstock latency calculated from 3 requests.")
+    @commands.command(aliases=['p'], help="Displays the average webstock latency calculated from 3 requests.")
     async def ping(self, ctx):
         """
         Displays the average webstock latency.
@@ -196,7 +196,18 @@ class Info(commands.Cog):
         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
         await ctx.send(embed=embed)
 
-        
+
+    @commands.command(help="Sends the bots invite link & the support server invite link.")
+    async def invite(self, ctx):
+        """
+        Displays the average webstock latency.
+        """
+
+        await ctx.send(f'*{ctx.author.mention}, Check your Direct Messages!*')
+
+        embed=discord.Embed(title="INVITE", description='Invite the bot [here](https://discord.com/api/oauth2/authorize?client_id=589075218606194699&permissions=8&scope=bot)\nJoin the support server [here](https://discord.gg/bsDAemN).', color=0x2f3136)
+        embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+        await ctx.author.send(embed=embed)
 
     # def cog_unload(self):
     #     self.bot.help_command = self._original_help_command
