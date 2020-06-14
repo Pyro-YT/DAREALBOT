@@ -42,6 +42,13 @@ class Games(commands.Cog):
             await ctx.send(embed=embed)
             return
 
+        currant_money = await darealmodule.Money.get_money(self, ctx, ctx.author.id)
+        if currant_money == bet:
+            embed=discord.Embed(title="You can't bet all of your money.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}help` to see a full list of commands.', color=0x2f3136)
+            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(ctx.cog, ctx))
+            await ctx.send(embed=embed)
+            return
+
         await ctx.message.add_reaction('<a:loading:716280480579715103>')
 
         async def random_roast_title():
