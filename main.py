@@ -8,7 +8,6 @@ import os
 import asyncpg
 from cogs.info import EmbedHelpCommand
 
-TOKEN = os.environ.get('DAREAL_BOT_TOKEN')
 
 bot = commands.Bot(command_prefix=['sudo.', 'Sudo.', '-'], case_insensetive=True, help_command=EmbedHelpCommand(command_attrs = {'help': 'asd'}), case_insensitive=True)
 
@@ -31,4 +30,4 @@ bot.loop.run_until_complete(create_db_pool())
 
 bot.load_extension('jishaku')
 
-bot.run(f'{TOKEN}')
+bot.run(f'NTg5MDc1MjE4NjA2MTk0Njk5.XuZ5UA.-i_qcwDsyprrsFKOIDw4n6ZVLcA')
