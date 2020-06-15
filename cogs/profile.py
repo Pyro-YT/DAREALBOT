@@ -47,6 +47,7 @@ class Profile(commands.Cog):
         if user:
             embed=discord.Embed(title="You already have a profile.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}remove` to delete your profile.', color=0x2f3136)
             embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+            await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
             await ctx.send(embed=embed)
             return
 

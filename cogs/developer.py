@@ -131,7 +131,7 @@ class Developer(commands.Cog):
 
     @commands.command(help='Blacklists a user from using the bot globally on all discord servers.')
     @commands.is_owner()
-    async def blacklist(self, ctx, user: int, *, reason):
+    async def blacklist(self, ctx, user: int, *):
         """
         Global bot blacklist.
         """
@@ -150,7 +150,7 @@ class Developer(commands.Cog):
 
     @commands.command(help='Blacklists a user from using the bot globally on all discord servers.')
     @commands.is_owner()
-    async def unblacklist(self, ctx, user: int, *, reason):
+    async def unblacklist(self, ctx, user: int, *):
         """
         Global bot blacklist.
         """
