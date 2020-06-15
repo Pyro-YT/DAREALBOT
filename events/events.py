@@ -15,11 +15,11 @@ class Events(commands.Cog):
     async def change_status(self):
         await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{len(self.bot.users)} Users"))
 
-        for i in await self.bot.pg_con.fetch("SELECT discord_id FROM blacklist"):
-            if int(i['discord_id']) in self.bot.blacklist_cache:
-                pass
-            else:
-                self.bot.blacklist_cache.append(int(i['discord_id']))
+        # for i in await self.bot.pg_con.fetch("SELECT discord_id FROM blacklist"):
+        #     if int(i['discord_id']) in self.bot.blacklist_cache:
+        #         pass
+        #     else:
+        #         self.bot.blacklist_cache.append(int(i['discord_id']))
 
     @tasks.loop(seconds=40)
     async def change_statuss(self):
@@ -60,11 +60,11 @@ class Events(commands.Cog):
         await Coroutines_channel.edit(name=f'Coroutines: {cr}')
         # return f"file: {fc}\nline: {ls}\nclass: {cl}\nfunction: {fn}\ncoroutine: {cr}\ncomment: {cm}"
 
-    async def globally_blacklist(self, ctx):
-        if ctx.author.id in self.bot.blacklist_cache:
-            await ctx.send('ure blacklisted moron')
-        else:
-            return True
+    # async def globally_blacklist(self, ctx):
+    #     if ctx.author.id in self.bot.blacklist_cache:
+    #         await ctx.send('ure blacklisted moron')
+    #     else:
+    #         return True
 
 
     @commands.Cog.listener()
@@ -80,7 +80,7 @@ class Events(commands.Cog):
         self.change_statuss.start()
         self.counter.start()
 
-        self.bot.add_check(self.globally_blacklist, call_once=True)
+        # self.bot.add_check(self.globally_blacklist, call_once=True)
 
 
 def setup(bot):
