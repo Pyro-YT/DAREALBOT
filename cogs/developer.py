@@ -141,9 +141,29 @@ class Developer(commands.Cog):
             await ctx.send('user dont exist bossman')
             return
 
+        try:
+            await self.bot.pg_con.execute("INSERT INTO blacklist (discord_id, reason, mod_id) VALUES ($1, $2, $3)", member.id, reason, ctx.author.id)
+        except:
+            await ctx.send('this user is already blacklisted')
+
+        await ctx.send(f'blacklisted {member}, **please allow upto __5 SECONDS__ for this change to be taken into effect**')
+
+    @commands.command(help='Blacklists a user from using the bot globally on all discord servers.')
+    @commands.is_owner()
+    async def unblacklist(self, ctx, user: int, *, reason):
+        """
+        Global bot blacklist.
+        """
+        try:
+            member = await self.bot.fetch_user(user)
+        except:
+            await ctx.send('user dont exist bossman')
+            return
+
         await self.bot.pg_con.execute("INSERT INTO blacklist (discord_id, reason, mod_id) VALUES ($1, $2, $3)", member.id, reason, ctx.author.id)
 
         await ctx.send(f'blacklisted {member}')
+
 
 def setup(bot):
     bot.add_cog(Developer(bot))
