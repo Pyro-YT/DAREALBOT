@@ -5,6 +5,7 @@ import sys
 import os
 import json
 import pathlib
+import aiohttp
 
 class Events(commands.Cog):
 
@@ -66,19 +67,37 @@ class Events(commands.Cog):
     #     else:
     #         return True
 
+    @tasks.loop(hours=2)
+    async def meme_cache_update(self):
+        self.bot.memes_cache = {}
+        subreddits = ['memes', 'dankmemes', 'memeeconomy', 'me_irl', 'meirl', '2meirl4meirl']
+        categories = ['new', 'hot', 'top']
+
+        for subreddit in subreddits:
+            for category in categories:
+                async with aiohttp.ClientSession() as cs:
+                    async with cs.get(f'https://www.reddit.com/r/{subreddit}/{category}.json') as r:
+                        data = await r.json()
+
+                        for i in data["data"]["children"]:
+                            try:
+                                self.bot.memes_cache[i["data"]["title"]] = i["data"]["url"]
+                            except:
+                                continue
 
     @commands.Cog.listener()
     async def on_ready(self):
+
+        self.change_status.start()
+        self.change_statuss.start()
+        self.counter.start()
+        self.meme_cache_update.start()
 
         print('Logged in as')
         print(self.bot.user.name)
         print(self.bot.user.id)
         print('------')
 
-
-        self.change_status.start()
-        self.change_statuss.start()
-        self.counter.start()
 
         # self.bot.add_check(self.globally_blacklist, call_once=True)
 
