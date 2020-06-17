@@ -71,7 +71,7 @@ class Events(commands.Cog):
     async def meme_cache_update(self):
         self.bot.memes_cache = {}
         subreddits = ['memes', 'dankmemes', 'memeeconomy', 'me_irl', 'meirl', '2meirl4meirl']
-        categories = ['new', 'hot', 'top']
+        categories = ['rising', 'hot', 'top']
 
         for subreddit in subreddits:
             for category in categories:
@@ -81,7 +81,7 @@ class Events(commands.Cog):
 
                         for i in data["data"]["children"]:
                             try:
-                                self.bot.memes_cache[i["data"]["title"]] = i["data"]["url"]
+                                self.bot.memes_cache[i["data"]["title"]] = [i["data"]["url"], f'r/{subreddit}/{category}']
                             except:
                                 continue
 

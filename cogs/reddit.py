@@ -26,7 +26,12 @@ class Reddit(commands.Cog):
 
         meme_lst = list(self.bot.memes_cache.items())
         meme = random.choice(meme_lst)
-        await ctx.send(meme[1])
+
+        embed=discord.Embed(title=f'{meme[1][1]}', description=f'{meme[0]}', color=0x2f3136)
+        embed.set_image(url=f'{meme[1][0]}')
+        embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+        await ctx.send(embed=embed)
+
 
 
 def setup(bot):
