@@ -74,6 +74,16 @@ class Events(commands.Cog):
                                 continue
 
 
+        self.bot.cute_dog_cache = {} # Cute dog cache block
+        payload = {'key': '12053258-d73248cc69ad03e2e311305db', 'image_type': 'photo', 'lang': 'en', 'q': 'cute+dog'}
+
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f'https://pixabay.com/api/', params=payload) as r:
+                data = await r.json()
+
+        self.bot.cute_dog_cache = [li['largeImageURL'] for li in data['hits']]
+
+
     @commands.Cog.listener()
     async def on_ready(self):
 
