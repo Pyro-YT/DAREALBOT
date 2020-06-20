@@ -142,7 +142,14 @@ class Profile(commands.Cog):
         await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
         await ctx.send(embed=embed)
 
-
+    @commands.command(help="")
+    @has_profile()
+    async def donate(self, ctx, member: discord.Member, ammount: int):
+        """
+        Donates money to a user, taken from your account.
+        """
+        return
+        await ctx.message.add_reaction('<a:loading:716280480579715103>')
 
 def setup(bot):
     bot.add_cog(Profile(bot))

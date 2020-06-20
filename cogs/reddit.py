@@ -39,22 +39,13 @@ class Reddit(commands.Cog):
         Generates a cute dog.
         """
 
-        #
-        # dog_lst = list(self.bot.cute_dog_cache.items())
-        # dog = random.choice(dog_lst)
-        #
-        # embed=discord.Embed(description=f'{dog[0]}', color=0x2f3136)
-        # embed.set_image(url=f'{dog[1]}')
-        # embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
-        # await ctx.send(embed=embed)
-
         dog_lst = list(self.bot.cute_dog_cache.items())
-        dog = random.choice(dog_lst)
+        dog= random.choice(dog_lst)
 
-        embed.set_image(url=f'{dog[0]}')
+        embed=discord.Embed(title=f'{dog[1][1]}', description=f'{dog[0]}', color=0x2f3136)
+        embed.set_image(url=f'{dog[1][0]}')
         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
         await ctx.send(embed=embed)
-
 
 def setup(bot):
     bot.add_cog(Reddit(bot))

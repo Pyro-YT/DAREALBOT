@@ -6,6 +6,7 @@ import os
 import json
 import pathlib
 import aiohttp
+import darealmodule
 
 class Events(commands.Cog):
 
@@ -73,16 +74,49 @@ class Events(commands.Cog):
                             except:
                                 continue
 
-
         self.bot.cute_dog_cache = {} # Cute dog cache block
-        payload = {'key': '12053258-d73248cc69ad03e2e311305db', 'image_type': 'photo', 'lang': 'en', 'q': 'cute+dog'}
+        subreddits = ['puppies']
+        categories = ['rising', 'hot', 'top']
 
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://pixabay.com/api/', params=payload) as r:
-                data = await r.json()
+        for subreddit in subreddits:
+            for category in categories:
+                async with aiohttp.ClientSession() as cs:
+                    async with cs.get(f'https://www.reddit.com/r/{subreddit}/{category}.json') as r:
+                        data = await r.json()
 
-        self.bot.cute_dog_cache = [li['largeImageURL'] for li in data['hits']]
+                        for i in data["data"]["children"]:
+                            try:
+                                link = i["data"]["url"]
+                                link=link.split('/')
+                                link[2] = 'i.imgur.com' 
+                                x = link[3].split('.')
+                                if len(x) == 2:
+                                    x.pop(1)
+                                if x[0] != link[3]:
+                                    link[3] = x[0]
+                                link[3] += '.jpg'
+                                link = '/'.join(link)
+                                self.bot.cute_dog_cache[i["data"]["title"]] = [link, f'r/{subreddit}/{category}']
+                            except:
+                                continue
 
+        # self.bot.cute_dog_cache = {} # Cute dog cache block
+        # payload = {'key': '12053258-d73248cc69ad03e2e311305db', 'image_type': 'photo', 'lang': 'en', 'q': 'cute+dog'}
+
+        # async with aiohttp.ClientSession() as cs:
+        #     async with cs.get(f'https://pixabay.com/api/', params=payload) as r:
+        #         data = await r.json()
+
+        # self.bot.cute_dog_cache = [li['largeImageURL'] for li in data['hits']]
+
+    # async def testing_bot(self, ctx):
+    #     if ctx.author.id in self.bot.owner_ids:
+    #         pass
+    #     elif ctx.author.id not in self.bot.owner_ids:
+    #         embed=discord.Embed(title="Testing bot restricted to owner usage.", description=f'<:warningerrors:713782413381075536> It looks like you have found the beta bot. This bot has been restricted to owner usage only. You can invite the public bot by [`clicking here!`](https://discord.com/api/oauth2/authorize?client_id=589075218606194699&permissions=8&scope=bot)', color=0x2f3136)
+    #         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+    #         await ctx.send(embed=embed)
+    #         return
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -91,6 +125,12 @@ class Events(commands.Cog):
         self.change_statuss.start()
         self.counter.start()
         self.reddit_cache_update.start()
+
+        # if self.bot.user.id == 711526390071296020:
+        #     self.bot.add_check(self.testing_bot, call_once=True)
+        # else:
+        #     pass
+
 
         print('Logged in as')
         print(self.bot.user.name)
