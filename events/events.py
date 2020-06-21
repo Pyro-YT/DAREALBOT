@@ -110,12 +110,7 @@ class Events(commands.Cog):
         # self.bot.cute_dog_cache = [li['largeImageURL'] for li in data['hits']]
 
     # async def testing_bot(self, ctx):
-    #     if ctx.author.id in self.bot.owner_ids:
-    #         pass
-    #     elif ctx.author.id not in self.bot.owner_ids:
-    #         embed=discord.Embed(title="Testing bot restricted to owner usage.", description=f'<:warningerrors:713782413381075536> It looks like you have found the beta bot. This bot has been restricted to owner usage only. You can invite the public bot by [`clicking here!`](https://discord.com/api/oauth2/authorize?client_id=589075218606194699&permissions=8&scope=bot)', color=0x2f3136)
-    #         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
-    #         await ctx.send(embed=embed)
+    #     if ctx.guild.id == 581084433646616576:
     #         return
 
     @commands.Cog.listener()
@@ -127,7 +122,7 @@ class Events(commands.Cog):
         self.reddit_cache_update.start()
 
         # if self.bot.user.id == 711526390071296020:
-        #     self.bot.add_check(self.testing_bot, call_once=True)
+        # self.bot.add_check(self.testing_bot, call_once=True)
         # else:
         #     pass
 

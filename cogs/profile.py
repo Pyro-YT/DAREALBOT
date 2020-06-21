@@ -148,7 +148,13 @@ class Profile(commands.Cog):
         """
         Donates money to a user, taken from your account.
         """
-
+        for i in str(ammount):
+            if i == '-':
+                embed=discord.Embed(title="You can't donate a negetive ammount.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}help` to see a full list of commands.', color=0x2f3136)
+                embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(ctx.cog, ctx))
+                await ctx.send(embed=embed)
+                return
+                
         currant_money = await darealmodule.Money.get_money(self, ctx, ctx.author.id)
         if currant_money == ammount:
             embed=discord.Embed(title="You can't donate all of your money.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}help` to see a full list of commands.', color=0x2f3136)
@@ -169,7 +175,18 @@ class Profile(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-        # await ctx.message.add_reaction('<a:loading:716280480579715103>')
+        await ctx.message.add_reaction('<a:loading:716280480579715103>')
+
+        gained = await darealmodule.Money.add_ammount(self, ctx, member.id, ammount)
+        lost = await darealmodule.Money.remove_ammount(self, ctx, ctx.author.id, ammount)
+
+        embed=discord.Embed(title="Money donated successfully.", description=f'<:check:711530148196909126> **`${ammount}`** has been transferred to {member.mention}.', color=0x2f3136)
+        embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
+        await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
+        await ctx.send(embed=embed)
+        return
+
+        await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
 
 def setup(bot):
     bot.add_cog(Profile(bot))
