@@ -38,10 +38,7 @@ class Errors(commands.Cog):
             await ctx.send(embed=embed)
             return
         if isinstance(error, commands.CheckFailure):
-            embed=discord.Embed(title="Looks like you have found the testing bot.", description=f'<:warningerrors:713782413381075536> Please use the public version, this testing bot has been restricted for owner usage.', color=0x2f3136)
-            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
-            await ctx.send(embed=embed)
-            return
+            await ctx.send(error)
 
 
 
