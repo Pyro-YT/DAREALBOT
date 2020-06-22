@@ -100,18 +100,8 @@ class Events(commands.Cog):
                             except:
                                 continue
 
-        # self.bot.cute_dog_cache = {} # Cute dog cache block
-        # payload = {'key': '12053258-d73248cc69ad03e2e311305db', 'image_type': 'photo', 'lang': 'en', 'q': 'cute+dog'}
-
-        # async with aiohttp.ClientSession() as cs:
-        #     async with cs.get(f'https://pixabay.com/api/', params=payload) as r:
-        #         data = await r.json()
-
-        # self.bot.cute_dog_cache = [li['largeImageURL'] for li in data['hits']]
-
     async def testing_bot(self, ctx):
         return ctx.author.id == 433293211436580874 or ctx.author.id == 644648271901622283
-
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -132,7 +122,11 @@ class Events(commands.Cog):
         print(self.bot.user.id)
         print('------')
 
-
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        send = 0
+        send = None if self.bot.user.mentioned_in(message) and not message.author.bot else False
+        if send == None: await message.channel.send(f'{message.author.mention} **WHAT THE HELL DO YO WA..** oh hi there! My prefix is `wait im adding it you fat moron`')
 
 def setup(bot):
     bot.add_cog(Events(bot))
