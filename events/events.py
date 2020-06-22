@@ -88,7 +88,7 @@ class Events(commands.Cog):
                             try:
                                 link = i["data"]["url"]
                                 link=link.split('/')
-                                link[2] = 'i.imgur.com' 
+                                link[2] = 'i.imgur.com'
                                 x = link[3].split('.')
                                 if len(x) == 2:
                                     x.pop(1)
@@ -109,9 +109,9 @@ class Events(commands.Cog):
 
         # self.bot.cute_dog_cache = [li['largeImageURL'] for li in data['hits']]
 
-    # async def testing_bot(self, ctx):
-    #     if ctx.guild.id == 581084433646616576:
-    #         return
+    async def testing_bot(self, ctx):
+        return ctx.author.id == 433293211436580874 or ctx.author.id == 644648271901622283
+
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -121,10 +121,10 @@ class Events(commands.Cog):
         self.counter.start()
         self.reddit_cache_update.start()
 
-        # if self.bot.user.id == 711526390071296020:
-        # self.bot.add_check(self.testing_bot, call_once=True)
-        # else:
-        #     pass
+        if self.bot.user.id == 711526390071296020:
+            self.bot.add_check(self.testing_bot, call_once=True)
+        else:
+            pass
 
 
         print('Logged in as')
