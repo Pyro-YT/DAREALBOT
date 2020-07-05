@@ -128,5 +128,16 @@ class Events(commands.Cog):
         send = None if self.bot.user.mentioned_in(message) and not message.author.bot else False
         if send == None: await message.channel.send(f'{message.author.mention} **WHAT THE HELL DO YO WA..** oh hi there! My prefix is `wait im adding it you fat moron`')
 
+    @commands.Cog.listener()
+    async def on_guild_join(self, guild):
+        x = self.bot.get_guild(699991602126389248)
+        channel = x.get_channel(729432679266779186)
+        embed = discord.Embed(description=guild.name, color=0x9aeb37)
+        embed.add_field(name='\U0001f30f Region', value=guild.region)
+        embed.add_field(name='\U0001f646 Member Count', value=f'{len(guild.members)}')
+        embed.add_field(name='\U00002604\U0000fe0f Owner', value=f'{guild.owner.name}')
+        await channel.send(f'\U0001f424 **We have reached our {len(self.bot.guilds)}th server!** \U0001f424')
+        await channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(Events(bot))
