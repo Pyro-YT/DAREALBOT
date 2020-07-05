@@ -112,6 +112,7 @@ class EmbedHelpCommand(commands.HelpCommand):
 *Lib* ‎‏‎*-* ‏‏‏‎ ‎*[discord.py](https://github.com/Rapptz/discord.py)*, ‏‏‎ ‎*[docs](https://discordpy.readthedocs.io/en/latest)*
 <:Invite:718152781747453952>__*[Click here to invite the bot to your server!](https://discord.com/api/oauth2/authorize?client_id=589075218606194699&permissions=8&scope=bot)*__
 <:Join:718154643095683142>__*[Click here to join the support server!](https://discord.gg/fGME6p2)*__
+<:DBL:729449964547342477>__*[Click here to upvote the bot on DBL!](https://top.gg/bot/589075218606194699)
         """
         embed.add_field(name='**Enabled Modules**', value=cogs, inline=True)
         embed.add_field(name='**About**', value=about, inline=True)
