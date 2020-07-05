@@ -116,13 +116,13 @@ class Games(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-    @commands.cooldown(1, per=180, type=discord.ext.commands.BucketType.user)
-    @commands.command(help='You can gain anywhere from $10-40 once every 3 minutes')
-    @has_profile()
-    async def guess(self, ctx, ):
+    # @commands.cooldown(1, per=180, type=discord.ext.commands.BucketType.user)
+    # @commands.command(help='You can gain anywhere from $10-40 once every 3 minutes')
+    # @has_profile()
+    # async def guess(self, ctx, ):
 
-        flip = random.choice(['WIN', 'LOOSE', 'NOTHING'])
-        if flip == 'WIN':
+    #     flip = random.choice(['WIN', 'LOOSE', 'NOTHING'])
+    #     if flip == 'WIN':
 
 
 def setup(bot):
