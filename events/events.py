@@ -122,11 +122,11 @@ class Events(commands.Cog):
         print(self.bot.user.id)
         print('------')
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        send = 0
-        send = None if self.bot.user.mentioned_in(message) and not message.author.bot else False
-        if send == None: await message.channel.send(f'{message.author.mention} **WHAT THE HELL DO YO WA..** oh hi there! My prefix is `wait im adding it you fat moron`')
+    # @commands.Cog.listener()
+    # async def on_message(self, message):
+        # send = 0
+        # send = None if self.bot.user.mentioned_in(message) and not message.author.bot else False
+        # if send == None: await message.channel.send(f'{message.author.mention} **WHAT THE HELL DO YO WA..** oh hi there! My prefix is `wait im adding it you fat moron`')
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
