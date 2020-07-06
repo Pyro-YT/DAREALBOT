@@ -67,7 +67,11 @@ class Games(commands.Cog):
         async def random_roast_title():
             return random.choice(['Lol noob, you failed at life',
             'Oh look, you tried something and it failed...',
-            'Lmao, it would suck being you right now'])
+            'Lmao, it would suck being you right now', 
+            'Your profile pic suck', 
+            'your name suck lmao', 
+            'your jokes are suck lol',
+            'Quit discord pls'])
 
         async def random_roast(lost):
             return random.choice([f'You chose **`{choice}`** and **`{flip}`** was flipped, you lost **`${lost}`**',
