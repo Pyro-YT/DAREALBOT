@@ -142,6 +142,26 @@ class Events(commands.Cog):
         embed.add_field(name='\U00002604\U0000fe0f Owner', value=f'{guild.owner.name}', inline=False)
         await channel.send(f'\U0001f424 **We have reached our {len(self.bot.guilds)}th server!** \U0001f424')
         await channel.send(embed=embed)
+        
+def on_member_join(self, member: discord.Member) -> None:
+        if member.guild.id != GuildConstant.id:
+            return
 
+        message = f"{member} (`{member.id}`)"
+        now = datetime.utcnow()
+        difference = abs(relativedelta(now, member.created_at))
+
+        message += "\n\n**Account age:** " + humanize_delta(difference)
+
+        if difference.days < 1 and difference.months < 1 and difference.years < 1:  # New user account!
+            message = f"{Emojis.new} {message}"
+
+        await self.send_log_message(
+            Icons.sign_in, Colorus.soft_red,
+            "User joined", message,
+            thumbnail=member.avatar_url_as(static_format="png"),
+            channel_id=Channels.userlog
+        ) 
+        
 def setup(bot):
     bot.add_cog(Events(bot))
