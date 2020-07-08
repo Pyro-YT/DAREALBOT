@@ -19,9 +19,15 @@ class Events(commands.Cog):
         self.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4OTA3NTIxODYwNjE5NDY5OSIsImJvdCI6dHJ1ZSwiaWF0IjoxNTkzOTg1NDA2fQ.6Ut375Ylh7vl78zKqljR3OJzZlKkfpB30cbox9jmTgQ' # set this to your DBL token
         self.dblpy = dbl.DBLClient(self.bot, self.token, autopost=True) # Autopost will post your guild count every 30 minutes
 
+    @bot.event
     async def on_guild_post(self):
         channel = self.bot.get_channel(730394760363376670)
         await channel.send('Server count posted successfully to DBL, next post in 30 mins.')
+
+    @bot.event
+    async def on_dbl_vote(self, data):
+        channel = self.bot.get_channel(730394760363376670)
+        await channel.send(f'{data}')
 
     @tasks.loop(seconds=20)
     async def change_status(self):
