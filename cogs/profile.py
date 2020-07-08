@@ -42,7 +42,7 @@ class Profile(commands.Cog):
         """
         await ctx.message.add_reaction('<a:loading:716280480579715103>')
 
-        user = await ctx.cog.bot.pg_con.fetch("SELECT * FROM profiles WHERE discord_id = $1 AND guild_id = $2", ctx.author.id, ctx.guild.id)
+        user = await ctx.cog.bot.pg_con.fetch("SELECT * FROM profiles WHERE discord_id = $1 AND guild_id = $2 AND developer_badge=FALSE", ctx.author.id, ctx.guild.id)
 
         if user:
             embed=discord.Embed(title="You already have a profile.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}remove` to delete your profile.', color=0x2f3136)
@@ -93,12 +93,16 @@ class Profile(commands.Cog):
         """
         await ctx.message.add_reaction('<a:loading:716280480579715103>')
         money = await darealmodule.Money.get_money(self, ctx, ctx.author.id)
+        badges = await darealmodule.Money.get_badges(self, ctx, ctx.author.id)
 
         async def gen_random():
             return random.choice(["Oh hey, I found your profile and uh a cat?",
             "Hey, I've missed you, dw I got your profile down here."])
 
+
         embed=discord.Embed(title=f"{await gen_random()}", description=f'<:catbox:719527304476491858> You have **`${money}`** in your account.\nUse `{ctx.prefix}help Games` to view a list of commands to earn money.', color=0x2f3136)
+        if badges:
+            embed.add_field(name='Badges', value=badges, inline=False)
         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
         await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
         await ctx.send(embed=embed)
