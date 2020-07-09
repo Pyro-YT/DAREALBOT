@@ -21,7 +21,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_post(self):
-        channel = await self.bot.fetch_channel(730394760363376670)
+        channel = await self.bot.fetch_channel(730747872798179360)
         await channel.send('Server count posted successfully to DBL, next post in 30 mins.')
 
     @commands.Cog.listener()
