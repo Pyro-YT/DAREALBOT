@@ -14,8 +14,6 @@ class Profile(commands.Cog):
     """This module allows you to check your profile data and reletive information."""
 
 
-
-
     def __init__(self, bot):
         self.bot = bot
         self.icon = '<:Profile:722065626004324403>'

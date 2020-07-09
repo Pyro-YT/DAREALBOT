@@ -129,12 +129,16 @@ class Developer(commands.Cog):
         except:
             await ctx.send(f"<:rcross:711530086251364373> | **Debug mode is already off.**")
 
-    @commands.command(help='asd')
+    @commands.command(help='Adds a badge to the given user, staff, developer & partner badges are automated.')
     @commands.is_owner()
-    async def lad(self, ctx, member: discord.Member, badge):
-        """
-        Adds a badge to a user.
-    `   """
+    async def addbadge(self, ctx, member: discord.Member, badge):
+        """Adds a badge to a user."""
+        user = await ctx.cog.bot.pg_con.fetch("SELECT * FROM profiles WHERE discord_id = $1 AND guild_id = $2", ctx.author.id, ctx.guild.id)
+        if not user:
+            embed=discord.Embed(title="This user to create a profile first.", description=f'<:warningerrors:713782413381075536> Use `{ctx.prefix}create` to create a profile.', color=0x2f3136)
+            embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(ctx.cog, ctx))
+            await ctx.send(embed=embed)
+            return
 
         badges = ['developer_badge', 'staff_badge', 'partner_badge']
         if badge.lower() not in badges:
@@ -158,7 +162,7 @@ class Developer(commands.Cog):
 
         await self.bot.pg_con.execute(f"UPDATE badges SET {badge}=TRUE WHERE discord_id = $1", member.id)
 
-        embed=discord.Embed(title="Badge added successfully.", description=f"<:check:711530148196909126> {badge} was added to {member}'s profile.", color=0x2f3136)
+        embed=discord.Embed(title="Badge added successfully.", description=f"<:check:711530148196909126> {badge} was added to `{member}`'s profile.", color=0x2f3136)
         embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))
         await ctx.message.remove_reaction('<a:loading:716280480579715103>', self.bot.user)
         await ctx.send(embed=embed)
