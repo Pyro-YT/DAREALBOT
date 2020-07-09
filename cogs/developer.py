@@ -140,7 +140,7 @@ class Developer(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-        badges = ['developer_badge', 'staff_badge', 'partner_badge']
+        badges = ['developer_badge', 'staff_badge', 'partner_badge', 'voter_badge']
         if badge.lower() not in badges:
             embed=discord.Embed(title="Badge not found.", description=f'<:warningerrors:713782413381075536> No badges found with the name of `{badge}`.', color=0x2f3136)
             embed.set_footer(icon_url=ctx.author.avatar_url_as(format="png"), text=darealmodule.Helping.get_footer(self, ctx))

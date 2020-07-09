@@ -27,8 +27,8 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_dbl_vote(self, data):
         channel = await self.bot.fetch_channel(730739315336019998)
-        member = self.bot.fetch_user(data["id"])
-        badge = 'voter_badge    '
+        member = self.bot.fetch_user(data.json()['id'])
+        badge = 'voter_badge'
         await channel.send(f'{member.mention} ({member.id}) has just voted! I have asigned the **voter** badge to this user...\nhttps://top.gg/bot/589075218606194699/vote')
         x = await ctx.cog.bot.pg_con.fetchval(f"SELECT discord_id FROM badges WHERE discord_id = $1", member.id)
         if not x:
